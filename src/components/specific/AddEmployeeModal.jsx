@@ -21,7 +21,6 @@ const AddEmployeeModal = ({ open, onClose }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(formData)
     try {
       await axios.post("https://employee-performance-report-backend.onrender.com/api/employee/add", formData);
       setFormData({

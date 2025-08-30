@@ -77,7 +77,6 @@ const PerformanceReport = () => {
             try {
                 const {data} = await axios.get(`https://employee-performance-report-backend.onrender.com/api/performance/reports/${id}`);
                 // Set the performance data state with the fetched data
-                console.log(data);
                 setEmployee(data.employee);
                 setReport(data.reports);
 
@@ -88,8 +87,6 @@ const PerformanceReport = () => {
     fetchPerformanceReport();
 }, [])
 
-console.log(employee)
-console.log(report)
 return (
     <div
         style={{

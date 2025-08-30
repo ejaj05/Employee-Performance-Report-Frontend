@@ -71,8 +71,8 @@ const Report = () => {
       toast.success("Report generated successfully!");
       navigate(`/generate-report/${data._id}`);
     } catch (error) {
-      console.error("Error adding report to database:", error);
-      toast.error(error.response.data.message);
+      console.log("Error adding report to database:", error);
+      // toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }

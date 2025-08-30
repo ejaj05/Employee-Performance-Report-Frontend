@@ -118,8 +118,7 @@ export default function EmployeeManagement({ setAddModalOpen }) {
     useEffect(() => {
         getallReports()
     }, []);
-
-console.log(reports)
+    console.log(reports);
     return (
         <Card>
             <Box
@@ -146,7 +145,7 @@ console.log(reports)
                         fontWeight: "bold",
                     }}
                 >
-                    {reports.length} Total Employees
+                    {reports?.length} Total Employees
                 </Button>
             </Box>
 
@@ -173,7 +172,7 @@ console.log(reports)
                     <InputLabel>All Roles</InputLabel>
                     <Select label="All Roles" value={role} onChange={handleRole} defaultValue="">
                         <MenuItem value="Senior Developer">Senior Developer</MenuItem>
-                        <MenuItem value="Senior Developer">Full Stack Developer</MenuItem>
+                        <MenuItem value="Full Stack Developer">Full Stack Developer</MenuItem>
                         <MenuItem value="UX Designer">UX Designer</MenuItem>
                         <MenuItem value="Marketing Manager">Marketing Manager</MenuItem>
                         <MenuItem value="Sales Representative">Sales Representative</MenuItem>
@@ -294,7 +293,7 @@ console.log(reports)
                                     <TableCell>
                                         {
                                             Array(5).fill(0).map((_, index) => (
-                                                <StarIcon  key={index} sx={{fontSize:"18px", color: index < rep.clientFeedback.rating ? "gold" : "lightgray" }} />
+                                                <StarIcon  key={index} sx={{fontSize:"18px", color: index < rep?.clientFeedback.rating ? "gold" : "lightgray" }} />
                                             ))
                                         }
                                     </TableCell>
@@ -303,14 +302,14 @@ console.log(reports)
                                         <Box position="relative" display="inline-flex">
                                             <CircularProgress
                                                 variant="determinate"
-                                                value={rep.score}
+                                                value={rep?.score}
                                                 size={50}
                                                 thickness={5}
                                                 sx={{
                                                     color:
-                                                        rep.score >= 100
+                                                        rep?.score >= 100
                                                             ? "green"
-                                                            : rep.score > 80
+                                                            : rep?.score > 80
                                                                 ? "orange"
                                                                 : "red",
                                                 }}
@@ -326,31 +325,31 @@ console.log(reports)
                                                 justifyContent="center"
                                             >
                                                 <Typography variant="caption" fontWeight="bold">
-                                                    {rep.score}
+                                                    {rep?.score}
                                                 </Typography>
                                             </Box>
                                         </Box>
                                     </TableCell>
                                     <TableCell>
-                                        {rep.trend === "upward" && (
+                                        {rep?.trend === "upward" && (
                                             <ArrowUpwardIcon sx={{ color: "green" }} />
                                         )}
-                                        {rep.trend === "downward" && (
+                                        {rep?.trend === "downward" && (
                                             <ArrowDownwardIcon sx={{ color: "red" }} />
                                         )}
-                                        {rep.trend === "stable" && (
+                                        {rep?.trend === "stable" && (
                                             <RemoveIcon sx={{ color: "gray" }} />
                                         )}
                                     </TableCell>
                                     <TableCell>
                                         <Chip
-                                            label={rep.status}
+                                            label={rep?.status}
                                             color={
-                                                rep.status === "Excellent"
+                                                rep?.status === "Excellent"
                                                     ? "success"
-                                                    : rep.status === "Good"
+                                                    : rep?.status === "Good"
                                                         ? "primary"
-                                                        : rep.status === "Average"
+                                                        : rep?.status === "Average"
                                                             ? "warning"
                                                             : "error"
                                             }
