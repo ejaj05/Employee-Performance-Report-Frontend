@@ -315,10 +315,10 @@ export default function EmployeeManagement({ setAddModalOpen }) {
                                                                     100 >=
                                                                     90
                                                                     ? "green"
-                                                                    : rep?.attendance.presentDays +
+                                                                    : (rep?.attendance.presentDays +
                                                                         rep?.attendance.paidLeaveDays +
-                                                                        (rep?.attendance.sickLeaveDays /
-                                                                            rep?.attendance.totalDays) *
+                                                                        rep?.attendance.sickLeaveDays) /
+                                                                            rep?.attendance.totalDays *
                                                                         100 >=
                                                                         80
                                                                         ? "orange"
@@ -328,10 +328,10 @@ export default function EmployeeManagement({ setAddModalOpen }) {
                                                 />
                                                 <Typography variant="body2">
                                                     {Math.floor(
-                                                        ((rep?.attendance.presentDays +
+                                                        (rep?.attendance.presentDays +
                                                             rep?.attendance.paidLeaveDays +
                                                             rep?.attendance.sickLeaveDays) /
-                                                            rep?.attendance.totalDays) *
+                                                            rep?.attendance.totalDays *
                                                         100
                                                     )}
                                                     %
