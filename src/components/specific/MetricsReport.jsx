@@ -103,14 +103,16 @@ const MetricsReport = ({metrics,handler}) => {
                     <FormControl fullWidth>
                         <InputLabel sx={{ color: "#aaa" }}>Rating</InputLabel>
                         <Select
+                            label="Rating"
                             value={clientFeedback.rating}
                             onChange={(e) => setClientFeedback({...clientFeedback,rating:e.target.value})}
                             sx={{
                                 color: "#fff",
                             }}
                         >
+                          <MenuItem value="">Select Rating</MenuItem>
                             {[
-                                1,2,3,4,5
+                                "Good", "Bad"
                             ].map((m) => (
                                 <MenuItem key={m} value={m}>
                                     {m}
@@ -121,28 +123,20 @@ const MetricsReport = ({metrics,handler}) => {
             </Grid>
 
             <Grid mt={"3rem"} item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                        <InputLabel sx={{ color: "#aaa" }}>ClientLost</InputLabel>
-                        <Select
-                         value={clientFeedback.clientLeft}
-                            onChange={(e) => setClientFeedback({...clientFeedback,clientLeft:e.target.value})}
-                            sx={{
-                                color: "#fff",
-                            }}
-                        >
-                            {[
-                                "True","False"
-                            ].map((m) => (
-                                <MenuItem key={m} value={m}>
-                                    {m}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                  <TextField
+                      fullWidth
+                      label="Client Left"
+                      value={clientFeedback.clientLeft}
+                      onChange={(e) => setClientFeedback({...clientFeedback,clientLeft:Number(e.target.value)})}
+                      inputProps={{
+                        style: { color: "white" }
+                      }}
+                      InputLabelProps={{ style: { color: "#aaa" } }}
+                  />
             </Grid>
           </Paper>
         </Grid>
-      </Grid>
+      </Grid> 
     </Box>
   );
 };

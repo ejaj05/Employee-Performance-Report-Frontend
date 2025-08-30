@@ -42,7 +42,7 @@ const EmployeeDetails = ({ employee, handler }) => {
 
             <Grid container spacing={3}>
                 {/* Employee Name */}
-                <Grid item xs={12} sm={6}>
+                <Grid>
                     <TextField
                         fullWidth
                         label="Employee Name"

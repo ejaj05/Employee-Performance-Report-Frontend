@@ -12,25 +12,15 @@ import { Add, Remove } from "@mui/icons-material";
 const AttendanceReport = ({ attendance, handler }) => {
 
     const {totalWorkingDays,
-        presentDays,
         absentDays,
           paidLeaves,
           sickLeaves} = attendance;
     const { setTotalWorkingDays,
-        setPresentDays,
           setAbsentDays,
           setPaidLeaves,
           setSickLeaves} = handler
 
     const renderCounter = (label, value, setValue) => {
-
-        const decreaseHandler = (setValue) => {
-            setValue(0);
-        }
-
-        const increaseHandler = (setValue) => {
-            setValue(1);
-        }
         
         return <Box
             sx={{
@@ -49,7 +39,7 @@ const AttendanceReport = ({ attendance, handler }) => {
                     mt: 1,
                 }}
             >
-                <IconButton onClick={() => decreaseHandler(setValue)}>
+                <IconButton onClick={() => setValue(Math.max(0, value - 1))}>
                     <Remove sx={{ color: "white" }} />
                 </IconButton>
                 <TextField
@@ -63,7 +53,7 @@ const AttendanceReport = ({ attendance, handler }) => {
                     sx={{ width: 50, mx: 1 }}
                     inputProps={{ readOnly: true }}
                 />
-                <IconButton onClick={() => increaseHandler(setValue)}>
+                <IconButton onClick={() => setValue(Number(value) + 1)}>
                     <Add sx={{ color: "white" }} />
                 </IconButton>
             </Box>
@@ -76,76 +66,52 @@ const AttendanceReport = ({ attendance, handler }) => {
                 p: 3,
                 borderRadius: 3,
                 color: "#fff",
-                maxWidth: 800,
+                minWidth: 800,
                 mx: "auto",
             }}
         >
             <Typography variant="h5" gutterBottom>
                 Attendance Report
             </Typography>
-            <Stack
-                display={"flex"}
-                direction={"row"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                flexWrap={"wrap"}
+            <Grid
+                container
+                spacing={3}
                 sx={{ my: 2 }}
             >
-                <Box>
-                    <Typography>Total Working Days</Typography>
+                <Grid>
                     <TextField
+                        label="Total Working Days"
+                        variant="outlined"
+                        InputLabelProps={{ style: { color: "#aaa" } }}
                         InputProps={{
                             style: {
                                 color: "#fff",
-                                backgroundColor: "#2f2f3fff",
                             },
                         }}
-                        type="text"
-                        color="white"
+                        
                         value={totalWorkingDays}
                         onChange={(e) => setTotalWorkingDays(Number(e.target.value))}
-                        size="small"
                         sx={{ mt: 1, width: "300px" }}
                     />
-                </Box>
+                </Grid>
 
-                <Box>
-                    <Typography>Total Present Days</Typography>
+                <Grid>
                     <TextField
+                        label="Uninformed Leaves"
+                        variant="outlined"
+                        InputLabelProps={{ style: { color: "#aaa" } }}
                         InputProps={{
                             style: {
                                 color: "#fff",
-                                backgroundColor: "#2f2f3fff",
                             },
                         }}
                         type="text"
-                        color="white"
-                        value={presentDays}
-                        onChange={(e) => setPresentDays(Number(e.target.value))}
-                        size="small"
-                        sx={{ mt: 1, width: "300px" }}
-                    />
-                </Box>
-
-                <Box>
-                    <Typography>Absent Days</Typography>
-                    <TextField
-                        InputProps={{
-                            style: {
-                                color: "#fff",
-                                backgroundColor: "#2f2f3fff",
-                            },
-                        }}
-                        type="text"
-                        color="white"
                         value={absentDays}
                         onChange={(e) => setAbsentDays(Number(e.target.value))}
-                        size="small"
                         sx={{ mt: 1, width: "300px" }}
                     />
-                </Box>
-                
-            </Stack>
+                </Grid>
+            </Grid>
 
             <Grid container spacing={2}>
                 {renderCounter("Paid Leaves", paidLeaves, setPaidLeaves)}

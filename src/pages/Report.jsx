@@ -21,9 +21,8 @@ const Report = () => {
   const [baseSalary, setBaseSalary] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [totalWorkingDays, setTotalWorkingDays] = useState(0);
-  const [presentDays, setPresentDays] = useState(0);
-  const [absentDays, setAbsentDays] = useState(0);
+  const [totalWorkingDays, setTotalWorkingDays] = useState("");
+  const [absentDays, setAbsentDays] = useState("");
   const [paidLeaves, setPaidLeaves] = useState(0);
   const [sickLeaves, setSickLeaves] = useState(0);
 
@@ -32,7 +31,7 @@ const Report = () => {
 
   const [clientFeedback, setClientFeedback] = useState({
     rating: 0,
-    clientLeft: false
+    clientLeft: 0
   });
 
   const [upskills, setUpskills] = useState({
@@ -59,7 +58,7 @@ const Report = () => {
           month,
           attendance: {
             totalDays: totalWorkingDays,
-            presentDays,
+            presentDays : totalWorkingDays - absentDays - paidLeaves - sickLeaves,
             absentDays,
             paidLeaveDays: paidLeaves,
             sickLeaveDays: sickLeaves,
@@ -72,7 +71,7 @@ const Report = () => {
       navigate(`/generate-report/${data._id}`);
     } catch (error) {
       console.log("Error adding report to database:", error);
-      // toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }
@@ -113,14 +112,12 @@ const Report = () => {
         <AttendanceReport
           attendance={{
             totalWorkingDays,
-            presentDays,
             absentDays,
             paidLeaves,
             sickLeaves,
           }}
           handler={{
             setTotalWorkingDays,
-            setPresentDays,
             setAbsentDays,
             setPaidLeaves,
             setSickLeaves,
