@@ -5,6 +5,7 @@ import {
   FormControl,
 } from '@mui/material';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const AddEmployeeModal = ({ open, onClose }) => {
   const [formData, setFormData] = useState({
@@ -22,21 +23,21 @@ const AddEmployeeModal = ({ open, onClose }) => {
   const handleSubmit = async () => {
     console.log(formData)
     try {
-      await axios.post("http://localhost:5000/api/employee/add", formData);
-      // setFormData({
-      //   name: "",
-      //   employeeId: "",
-      //   department: "",
-      //   role: "",
-      //   baseSalary: 0,
-      // });
+      await axios.post("https://employee-performance-report-backend.onrender.com/api/employee/add", formData);
+      setFormData({
+        name: "",
+        employeeId: "",
+        department: "",
+        role: "",
+        baseSalary: 0,
+      });
+      toast.success("Employee added successfully!");
       onClose();
     } catch (err) {
       console.error("Failed to add employee:", err);
+      toast.error("Failed to add employee");
     }
   };
-
-  console.log(formData)
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -46,10 +47,11 @@ const AddEmployeeModal = ({ open, onClose }) => {
         <TextField label="Employee ID" name="employeeId" value={formData.employeeId} onChange={handleChange} fullWidth margin="normal" />
         <FormControl fullWidth margin="normal">
           <InputLabel>Department</InputLabel>
-          <Select name="department" value={formData.department} onChange={handleChange} fullWidth margin="normal">
+          <Select label="Department" name="department" value={formData.department} onChange={handleChange} fullWidth>
           <MenuItem value="Engineering">Engineering</MenuItem>
           <MenuItem value="Design">Design</MenuItem>
           <MenuItem value="Marketing">Marketing</MenuItem>
+          <MenuItem value="Sales">Sales</MenuItem>
           {/* Add more */}
         </Select>
         </FormControl>
@@ -58,8 +60,11 @@ const AddEmployeeModal = ({ open, onClose }) => {
           <InputLabel>Role</InputLabel>
           <Select label="Role" name="role" value={formData.role} onChange={handleChange} fullWidth margin="normal">
           <MenuItem value="Full Stack Developer">Full Stack Developer</MenuItem>
+          <MenuItem value="Full Stack Developer">Senior Developer</MenuItem>
           <MenuItem value="UX Designer">UX Designer</MenuItem>
           <MenuItem value="Frontend Developer">Frontend Developer</MenuItem>
+          <MenuItem value="Marketing Manager">Marketing Manager</MenuItem>
+          <MenuItem value="Sales Representative">Sales Representative</MenuItem>
 
           {/* Add more */}
         </Select>

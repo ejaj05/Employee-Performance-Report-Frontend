@@ -10,8 +10,16 @@ import {
     FormControl,
 } from "@mui/material";
 const EmployeeDetails = ({ employee, handler }) => {
-    const { name, ID, department, role, month, year,baseSalary } = employee;
-    const { setName, setID, setDepartment, setRole, setMonth, setYear,setBaseSalary } = handler;
+    const { name, ID, department, role, month, year, baseSalary } = employee;
+    const {
+        setName,
+        setID,
+        setDepartment,
+        setRole,
+        setMonth,
+        setYear,
+        setBaseSalary,
+    } = handler;
 
     return (
         <Box
@@ -68,38 +76,54 @@ const EmployeeDetails = ({ employee, handler }) => {
                 </Grid>
 
                 {/* Department */}
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        fullWidth
-                        label="Department"
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                        variant="outlined"
-                        InputLabelProps={{ style: { color: "#aaa" } }}
-                        InputProps={{
-                            style: {
-                                color: "#fff",
-                            },
-                        }}
-                    />
+                <Grid size={4}>
+                    <FormControl fullWidth>
+                        <InputLabel sx={{color:"#fff"}}>Department</InputLabel>
+                        <Select
+                            label="Department"
+                            name="department"
+                            value={department}
+                            onChange={(e) => setDepartment(e.target.value)}
+                            fullWidth
+                            sx={{color:"white"}}
+
+                        >
+                            <MenuItem value="">Select Department</MenuItem>
+                            <MenuItem value="Engineering">Engineering</MenuItem>
+                            <MenuItem value="Design">Design</MenuItem>
+                            <MenuItem value="Marketing">Marketing</MenuItem>
+                            <MenuItem value="Sales">Sales</MenuItem>
+                            {/* Add more */}
+                        </Select>
+                    </FormControl>
                 </Grid>
 
                 {/* Role */}
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        fullWidth
-                        label="Role"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        variant="outlined"
-                        InputLabelProps={{ style: { color: "#aaa" } }}
-                        InputProps={{
-                            style: {
-                                color: "#fff",
-                                borderColor: "#9c27b0",
-                            },
-                        }}
-                    />
+                <Grid size={4}>
+                    <FormControl fullWidth>
+                        <InputLabel sx={{color:"#fff"}}>Role</InputLabel>
+                        <Select
+                            label="Role"
+                            name="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            fullWidth
+                            sx={{color:"white"}}
+                        >
+                            <MenuItem value="">Select Role</MenuItem>
+                            <MenuItem value="Full Stack Developer">
+                                Full Stack Developer
+                            </MenuItem>
+                            <MenuItem value="Full Stack Developer">Senior Developer</MenuItem>
+                            <MenuItem value="UX Designer">UX Designer</MenuItem>
+                            <MenuItem value="Frontend Developer">Frontend Developer</MenuItem>
+                            <MenuItem value="Marketing Manager">Marketing Manager</MenuItem>
+                            <MenuItem value="Sales Representative">Sales Representative</MenuItem>
+                            <MenuItem value="Junior Developer">Junior Developer</MenuItem>
+
+                            {/* Add more */}
+                        </Select>
+                    </FormControl>
                 </Grid>
 
                 {/* Month Dropdown */}

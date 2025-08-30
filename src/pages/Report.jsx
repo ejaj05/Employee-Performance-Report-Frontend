@@ -9,7 +9,7 @@ import calculateScoreFromData from "../hooks/calculatePerformance";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { set } from "mongoose";
+import toast from "react-hot-toast";
 
 const Report = () => {
   const [name, setName] = useState("");
@@ -49,7 +49,7 @@ const Report = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/performance/submit",
+        "https://employee-performance-report-backend.onrender.com/api/performance/submit",
         {
           employeeId: ID,
           name,
@@ -68,10 +68,11 @@ const Report = () => {
           upskills,
         }
       );
-      console.log(data)
+      toast.success("Report generated successfully!");
       navigate(`/generate-report/${data._id}`);
     } catch (error) {
       console.error("Error adding report to database:", error);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }

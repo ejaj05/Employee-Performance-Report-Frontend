@@ -25,7 +25,7 @@ export default function AddEmployee() {
     setMessage("");
 
     try {
-      await axios.post("http://localhost:5000/api/v1/employees", employee);
+      await axios.post("https://employee-performance-report-backend.onrender.com/api/v1/employees", employee);
       setMessage("✅ Employee added successfully!");
       setEmployee({
         id: "",

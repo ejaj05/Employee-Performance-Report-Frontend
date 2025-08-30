@@ -31,7 +31,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
-import { set } from "mongoose";
+import toast from "react-hot-toast";
 
 export default function EmployeeManagement({ setAddModalOpen }) {
     const [reports, setReports] = useState([]);
@@ -55,51 +55,63 @@ export default function EmployeeManagement({ setAddModalOpen }) {
     ];
 
     const getallReports = async() => {
+        const id = toast.loading("Loading...")
         try {
-            const {data} = await axios.get("http://localhost:5000/api/performance/reports")
+            const {data} = await axios.get("https://employee-performance-report-backend.onrender.com/api/performance/reports")
             setReports(data.report)
         } catch (error) {
             console.log(error)
+        } finally {
+            toast.dismiss(id)
         }
     }
 
     const getReportByMonth = async (e) => {
+        const id = toast.loading("Loading...")
         try {
             setMonth(e.target.value)
             setDepartment("")
             setRole("")
             const {data} = await axios.get(
-                `http://localhost:5000/api/performance/reports/month/${e.target.value}`
+                `https://employee-performance-report-backend.onrender.com/api/performance/reports/month/${e.target.value}`
             );
             setReports(data);
             
         } catch (err) {
             console.error("Failed to fetch report:", err);
+        } finally {
+            toast.dismiss(id)
         }
     };
 
 
     const handleDepartment = async(event) => {
+        const id = toast.loading("Loading...")
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/performance/reports/department/${event.target.value}`)
+            const {data} = await axios.get(`https://employee-performance-report-backend.onrender.com/api/performance/reports/department/${event.target.value}`)
             setReports(data.report)
             setDepartment(event.target.value)
             setRole("")
             setMonth("")
         } catch (error) {
             console.log(error)
+        }finally {
+            toast.dismiss(id)
         }
     }
 
     const handleRole = async(e) => {
+        const id = toast.loading("Loading...")
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/performance/reports/role/${e.target.value}`)
+            const {data} = await axios.get(`https://employee-performance-report-backend.onrender.com/api/performance/reports/role/${e.target.value}`)
             setReports(data.report)
             setRole(e.target.value)
             setDepartment("")
             setMonth("")
         } catch (error) {
             console.log(error)
+        }finally {
+            toast.dismiss(id)
         }
     }
 
@@ -107,10 +119,7 @@ export default function EmployeeManagement({ setAddModalOpen }) {
         getallReports()
     }, []);
 
-
-    console.log(reports)
-    console.log(month)
-
+console.log(reports)
     return (
         <Card>
             <Box
@@ -153,18 +162,22 @@ export default function EmployeeManagement({ setAddModalOpen }) {
                 <TextField placeholder="Search" size="small" sx={{ width: 200 }} />
                 <FormControl size="small" sx={{ minWidth: 160 }}>
                     <InputLabel>All Departments</InputLabel>
-                    <Select value={department} onChange={handleDepartment} defaultValue="">
+                    <Select label="All Departments" value={department} onChange={handleDepartment} defaultValue="">
                         <MenuItem value="Engineering">Engineering</MenuItem>
                         <MenuItem value="Design">Design</MenuItem>
                         <MenuItem value="Marketing">Marketing</MenuItem>
+                        <MenuItem value="Sales">Sales</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl size="small" sx={{ minWidth: 160 }}>
                     <InputLabel>All Roles</InputLabel>
-                    <Select value={role} onChange={handleRole} defaultValue="">
+                    <Select label="All Roles" value={role} onChange={handleRole} defaultValue="">
                         <MenuItem value="Senior Developer">Senior Developer</MenuItem>
+                        <MenuItem value="Senior Developer">Full Stack Developer</MenuItem>
                         <MenuItem value="UX Designer">UX Designer</MenuItem>
-                        <MenuItem value="Manager">Manager</MenuItem>
+                        <MenuItem value="Marketing Manager">Marketing Manager</MenuItem>
+                        <MenuItem value="Sales Representative">Sales Representative</MenuItem>
+                        <MenuItem value="Junior Developer">Junior Developer</MenuItem>
                     </Select>
                 </FormControl>
                 <FormControl size="small" sx={{ minWidth: 160 }}>
@@ -173,6 +186,7 @@ export default function EmployeeManagement({ setAddModalOpen }) {
                         value={month}
                         onChange={getReportByMonth}
                         defaultValue=""
+                        label="All Months"
                     >
                         {[
                             "January",
@@ -248,13 +262,13 @@ export default function EmployeeManagement({ setAddModalOpen }) {
                                         <Box display="flex" alignItems="center" gap={1.5}>
                                             <Avatar src={""} />
                                             <Box>
-                                                <Typography fontWeight="bold">{emp.name}</Typography>
+                                                <Typography fontWeight="bold">{emp?.name}</Typography>
                                             </Box>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>{emp.employeeId}</TableCell>
-                                    <TableCell>{emp.department}</TableCell>
-                                    <TableCell>{emp.role}</TableCell>
+                                    <TableCell>{emp?.employeeId}</TableCell>
+                                    <TableCell>{emp?.department}</TableCell>
+                                    <TableCell>{emp?.role}</TableCell>
                                     <TableCell>
                                         <Box display="flex" alignItems="center" gap={1}>
                                             <LinearProgress

@@ -75,7 +75,7 @@ const PerformanceReport = () => {
     // Fetch the performance report data using the id
         const fetchPerformanceReport = async () => {
             try {
-                const {data} = await axios.get(`http://localhost:5000/api/performance/reports/${id}`);
+                const {data} = await axios.get(`https://employee-performance-report-backend.onrender.com/api/performance/reports/${id}`);
                 // Set the performance data state with the fetched data
                 console.log(data);
                 setEmployee(data.employee);

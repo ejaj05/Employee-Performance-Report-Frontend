@@ -3,6 +3,7 @@ import AppLayout from './components/Layout/AppLayout'
 import { Route, Routes } from 'react-router-dom'
 import Report from './pages/Report'
 import PerformanceReport from './pages/PerformanceReport'
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/report" element={<Report />} />
         <Route path='/generate-report/:id' element={<PerformanceReport />} />
       </Routes>
+      <Toaster />
     </div>
   )
 }
