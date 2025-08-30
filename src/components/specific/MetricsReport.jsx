@@ -13,7 +13,6 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-import { set } from "mongoose";
 
 const CounterField = ({ label, value, setValue }) => {
   const decreaseHandler = (label, setValue) => {
